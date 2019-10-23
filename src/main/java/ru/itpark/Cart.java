@@ -28,36 +28,33 @@ public class Cart {
         return totalAmountWithDiscountInRub;
     }
 
-    public void add(Product newProduct) {
+    public void add(Product product) {
         if (productsInCart == null) {
-            productsInCart.add(newProduct);
+            productsInCart.add(product);
             return;
-        } else if (productsInCart.contains(newProduct)) {
-            System.out.println(newProduct.getProductName() + " уже добавлен в корзину");
-            return;
-        } else {
-            productsInCart.add(newProduct);
-            totalAmountInRub += newProduct.getPrice();
-            totalDiscountInRub += newProduct.getDiscount();
-            totalAmountWithDiscountInRub += newProduct.getPriceWithDiscount();
-            totalCountOfProducts++;
         }
+        if (productsInCart.contains(product)) {
+            return;
+        }
+        productsInCart.add(product);
+        totalAmountInRub += product.getPrice();
+        totalDiscountInRub += product.getDiscount();
+        totalAmountWithDiscountInRub += product.getPriceWithDiscount();
+        totalCountOfProducts++;
     }
 
-    public void delete(Product unnecessaryProduct) {
+    public void delete(Product product) {
         if (productsInCart == null) {
-            System.out.println("Корзина пуста");
             return;
-        } else if (!productsInCart.contains(unnecessaryProduct)) {
-            System.out.println(unnecessaryProduct.getProductName() + " нет в корзине");
-            return;
-        } else {
-            productsInCart.remove(unnecessaryProduct);
-            totalAmountInRub -= unnecessaryProduct.getPrice();
-            totalDiscountInRub -= unnecessaryProduct.getDiscount();
-            totalAmountWithDiscountInRub -= unnecessaryProduct.getPriceWithDiscount();
-            totalCountOfProducts--;
         }
+        if (!productsInCart.contains(product)) {
+            return;
+        }
+        productsInCart.remove(product);
+        totalAmountInRub -= product.getPrice();
+        totalDiscountInRub -= product.getDiscount();
+        totalAmountWithDiscountInRub -= product.getPriceWithDiscount();
+        totalCountOfProducts--;
     }
 
     public int countOfProductsInCart() {
